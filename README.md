@@ -10,7 +10,10 @@ This project demonstrates two methods to compute the sum of permutations of a st
 2. **Add Profiling Macros**  
    Use the `PROFILE_FUNCTION()` macro at the beginning of any function you want to profile. This macro will automatically record execution times for that function.
 
-3. **Set Up Instrumentation in `main()`**  
+3. **Build with Profiling Enabled**  
+   Ensure your project is built with the `PROFILING=1` flag. This enables profiling macros at compile time.
+
+4. **Set Up Instrumentation in `main()`**  
    Ensure your `main` function includes the following lines:
    ```cpp
    Instrumentor::Get().BeginSession("Profile", "profile.json", false);
@@ -18,7 +21,7 @@ This project demonstrates two methods to compute the sum of permutations of a st
    Instrumentor::Get().EndSession();
    ```
 
-4. **Print Profiling Data (Optional)**  
+5. **Print Profiling Data (Optional)**  
    To output profiling data for review, include:
    ```cpp
    InstrumentorPrinting::PrintSessionData(Instrumentor::Get().GetFunctionTimes(), Instrumentor::Get().GetRuntime());
