@@ -1,4 +1,5 @@
-#include "Instrumentation/Instrumentor.hpp"
+//#include "Instrumentation/Instrumentor.hpp"
+#include "Profiler.hpp"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -50,8 +51,6 @@ long long SumOfPermutationsString_Optimized(const std::string& number) {
 }
 
 int main() {
-    Instrumentor::Get().BeginSession("Profile", "profile.json", false);
-
     std::string number = "123456789";
 
     long long sumNonOptimized = SumOfPermutationsString_NonOptimized(number);
@@ -59,9 +58,5 @@ int main() {
 
     printf("Sum of permutations (non-optimized): %lld\n", sumNonOptimized);
     printf("Sum of permutations (optimized): %lld\n", sumOptimized);
-
-    InstrumentorPrinting::PrintSessionData(Instrumentor::Get().GetFunctionTimes(), Instrumentor::Get().GetRuntime());
-
-    Instrumentor::Get().EndSession();
     return 0;
 }
