@@ -31,9 +31,9 @@ std::vector<double> InstrumentTime::getPercentiles() const {
     };
 
     return {
-        interpolate(n * 5 / 100.0),  // 5%
-        interpolate(n * 50 / 100.0), // 50% (median)
-        interpolate(n * 95 / 100.0)  // 95%
+        interpolate(n * 5 / 100.0),
+        interpolate(n * 50 / 100.0),
+        interpolate(n * 95 / 100.0)
     };
 }
 
