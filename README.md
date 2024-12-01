@@ -1,6 +1,4 @@
-# Sum of Permutations with Profiling
-
-This project demonstrates two methods to compute the sum of permutations of a string of digits: a **non-optimized recursive approach** and an **optimized approach**. It also includes performance profiling using a custom **Instrumentation** system.
+# Profiling
 
 ## How to Use Instrumentation
 
