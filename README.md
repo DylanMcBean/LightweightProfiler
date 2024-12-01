@@ -46,5 +46,5 @@
 
 ## Output
 
-- Profiling data will be saved in a file named `profile.json`.
+- Profiling data will be saved in a file named `profile.json`, if `write_profiles` is enabled (**not needed**).
 - You can review the profiling data for detailed insights into function execution times.
