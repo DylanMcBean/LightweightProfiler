@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Profiler.hpp"
 #include <locale>
 #include <sstream>
@@ -40,7 +41,7 @@ std::vector<double> InstrumentTime::getPercentiles() const {
 
 
 std::string InstrumentTime::getConvertedTime(int stringLength, double timeToConvert) const {
-    constexpr std::array<std::string_view, 7> timeUnits = {"ns", "us", "ms", " s", " m", " h", " d"};
+    constexpr std::array<const char*, 7> timeUnits = {" ns", " us", " ms", "sec", "min", " hr", "day"};
     constexpr std::array<int, 6> timeUnitValues = {1000, 1000, 1000, 60, 60, 24};
 
     size_t unitIndex = 0;
@@ -49,7 +50,13 @@ std::string InstrumentTime::getConvertedTime(int stringLength, double timeToConv
         ++unitIndex;
     }
 
+#if __cplusplus > 201703L // check for c++20 support
     return std::format("{:<{}.2f}{}", timeToConvert, stringLength - 2, timeUnits[unitIndex]);
+#else // fallback to stringstream
+	std::stringstream ss;
+    ss << std::fixed << std::setprecision(2) << std::left << std::setw(static_cast<std::streamsize>(stringLength) - 3) << timeToConvert << timeUnits[unitIndex];
+	return ss.str();
+#endif
 }
 
 Instrumentor& Instrumentor::Get() {
@@ -83,7 +90,7 @@ void Instrumentor::PrintResults() {
                   return a95 > b95; // Descending order
               });
 
-    int maxNameLength = 0;
+	int maxNameLength = 13; // "Function Name"
     for (const auto& pair : sortedFunctionTimes) {
         maxNameLength = std::max(maxNameLength, static_cast<int>(pair.first.length()));
     }
