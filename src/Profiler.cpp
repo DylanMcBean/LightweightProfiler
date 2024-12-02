@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Profiler.hpp"
 #include <locale>
 #include <sstream>
