@@ -52,9 +52,12 @@ private:
 #if PROFILING
 #ifdef _MSC_VER // Microsoft Compiler
 #define PROFILE_FUNCTION() InstrumentationTimer timer##__LINE__(__FUNCTION__)
+#define PROFILE_SCOPE(name) InstrumentationTimer timer##__LINE__(name)
 #else // Clang, GCC
 #define PROFILE_FUNCTION() InstrumentationTimer timer##__LINE__(__PRETTY_FUNCTION__)
+#define PROFILE_SCOPE(name) InstrumentationTimer timer##__LINE__(name)
 #endif
 #else
 #define PROFILE_FUNCTION()
+#define PROFILE_SCOPE(name)
 #endif
