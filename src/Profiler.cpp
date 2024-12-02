@@ -50,7 +50,7 @@ std::string InstrumentTime::getConvertedTime(int stringLength, double timeToConv
     }
 
 #if __cplusplus > 201703L // check for c++20 support
-    return std::format("{:<{}.2f}{}", timeToConvert, stringLength - 2, timeUnits[unitIndex]);
+    return std::format("{:<{}.2f}{}", timeToConvert, stringLength - 3, timeUnits[unitIndex]);
 #else // fallback to stringstream
 	std::stringstream ss;
     ss << std::fixed << std::setprecision(2) << std::left << std::setw(static_cast<std::streamsize>(stringLength) - 3) << timeToConvert << timeUnits[unitIndex];
