@@ -8,9 +8,13 @@
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
+#include <array>
+#if __cplusplus > 201703L
 #include <format>
+#endif
 
-struct InstrumentTime {
+struct InstrumentTime
+{
     int64_t TotalTime = 0;
     uint64_t Count = 0;
     bool Initialized = false;
@@ -19,14 +23,15 @@ struct InstrumentTime {
     void addTiming(int64_t time);
     double getAverageTime() const;
     std::vector<double> getPercentiles() const;
-    std::string getConvertedTime(int stringLength, double timeToConvert) const;
+    static std::string getConvertedTime(int stringLength, double timeToConvert, std::string startingUnit);
 };
 
-class Instrumentor {
+class Instrumentor
+{
 public:
-    static Instrumentor& Get();
+    static Instrumentor &Get();
 
-    void AddFunctionTime(const std::string& name, int64_t time);
+    void AddFunctionTime(const std::string &name, int64_t time);
     ~Instrumentor();
 
 private:
@@ -37,14 +42,15 @@ private:
     void PrintResults();
 };
 
-class InstrumentationTimer {
+class InstrumentationTimer
+{
 public:
-    explicit InstrumentationTimer(const char* name);
+    explicit InstrumentationTimer(const char *name);
     ~InstrumentationTimer();
     void Stop();
 
 private:
-    const char* m_Name;
+    const char *m_Name;
     std::chrono::time_point<std::chrono::steady_clock> m_StartTimepoint;
     bool m_Stopped;
 };
